@@ -1,0 +1,98 @@
+create TABLE Plays
+(
+Play_ID INT NOT NULL identity,
+Name NVARCHAR(50) NOT NULL,
+PRIMARY KEY (Play_ID)
+);
+
+CREATE TABLE Actors
+(
+Actor_ID INT NOT NULL,
+Full_name NVARCHAR(50) NOT NULL,
+Age INT NOT null,
+Experience int,
+Title NVARCHAR(50),
+Salary int,
+PRIMARY KEY (Actor_ID)
+);
+
+CREATE TABLE Visitors
+(
+Visitor_ID INT NOT NULL,
+Full_name NVARCHAR(50) NOT NULL,
+PRIMARY KEY (Visitor_ID)
+);
+
+CREATE TABLE Genres
+(
+Genre_ID INT NOT NULL Identity,
+Genre_name NVARCHAR(50) NOT NULL,
+PRIMARY KEY (Genre_ID)
+);
+
+Create table Halls
+(
+Hall_number int NOT NULL,
+seat_quantity int NOt null,
+primary key (Hall_number)
+)
+CREATE TABLE Events
+(
+Event_ID INT NOT NULL,
+Date DATE NOT NULL,
+Hall_number INT NOT NULL,
+Play_ID INT NOT NULL,
+PRIMARY KEY (Event_ID),
+FOREIGN KEY (Play_ID) REFERENCES Plays(Play_ID),
+FOREIGN KEY (Hall_number) REFERENCES Halls(Hall_number)
+);
+
+create TABLE Directors
+(
+Director_ID INT NOT NULL,
+Full_name NVARCHAR(50) NOT NULL,
+age int not null,
+Experience int,
+Title NVARCHAR(50),
+Salary int,
+PRIMARY KEY (Director_ID)
+);
+
+CREATE TABLE Play_in
+(
+Play_ID INT NOT NULL,
+Actor_ID INT NOT NULL,
+PRIMARY KEY (Play_ID, Actor_ID),
+FOREIGN KEY (Play_ID) REFERENCES Plays(Play_ID),
+FOREIGN KEY (Actor_ID) REFERENCES Actors(Actor_ID)
+);
+
+CREATE TABLE Have
+(
+Play_ID INT NOT NULL,
+Genre_ID INT NOT NULL,
+PRIMARY KEY (Play_ID, Genre_ID),
+FOREIGN KEY (Play_ID) REFERENCES Plays(Play_ID),
+FOREIGN KEY (Genre_ID) REFERENCES Genres(Genre_ID)
+);
+
+CREATE TABLE Stage
+(
+Play_ID INT NOT NULL,
+Director_ID INT NOT NULL,
+PRIMARY KEY (Play_ID, Director_ID),
+FOREIGN KEY (Play_ID) REFERENCES Plays(Play_ID),
+FOREIGN KEY (Director_ID) REFERENCES Directors(Director_ID)
+);
+
+CREATE TABLE Tickets
+(
+Ticket_ID INT NOT NULL IDENTITY,
+Price INT NOT NULL,
+Seat_number INT NOT NULL,
+Visitor_ID INT,
+Event_ID INT NOT NULL,
+PRIMARY KEY (Ticket_ID),
+FOREIGN KEY (Visitor_ID) REFERENCES Visitors(Visitor_ID),
+FOREIGN KEY (Event_ID) REFERENCES Events(Event_ID)
+);
